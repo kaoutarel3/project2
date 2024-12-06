@@ -46,13 +46,13 @@ This project is a Streamlit-based application that processes PDF documents to ge
 
 1. Python 3.8 or higher.
 
-2. NVIDIA NeMo account with an API key and endpoint.
+1. NVIDIA NeMo account with an API key and endpoint.
 
-3. NVIDIA-compatible environment for accessing the NeMo model via the OpenAI client.
+2. NVIDIA-compatible environment for accessing the NeMo model via the OpenAI client.
 
    *--Steps:*
 
-1. Clone the repository:
+3. Clone the repository:
 
 ``git clone <repository-url>
 cd <repository-folder>``
