@@ -28,6 +28,89 @@ The models used
 ---------------------------
 - It was trained with no overlap of the MTEB data, indicating that the model generalizes well across several domains, tasks, and text lengths when embedding your dataset.
 
+**PDF to Q&A Converter**
+===============
+
+This project is a Streamlit-based application that processes PDF documents to generate question-and-answer pairs based on the content. It uses PyMuPDF and pdfplumber for text and metadata extraction, and leverages NVIDIA's NeMo Inference API for generating Q&A responses.
+
+*Features:*
+
+-Extracts metadata and text from uploaded PDFs.
+
+-Splits text into manageable chunks for processing.
+
+-Generates 5 relevant questions and answers from each text chunk using the NVIDIA NeMo API.
+
+-Outputs the Q&A pairs as a downloadable text file.
+
+*Installation:*
+
+*--Prerequisites:*
+
+#Python 3.8 or higher.
+
+#NVIDIA NeMo account with an API key and endpoint.
+
+#NVIDIA-compatible environment for accessing the NeMo model via the OpenAI client.
+
+*--Steps:*
+
+#Clone the repository:
+
+``git clone <repository-url>
+cd <repository-folder>``
+
+#Install dependencies:
+
+``pip install -r requirements.txt``
+
+#Replace placeholders for the API key and endpoint in the code:
+
+``API_KEY = '<your API key>'
+ENDPOINT = '<your inference endpoint>'``
+
+#Run the Streamlit app:
+
+``streamlit run app.py``
+
+*Usage*
+
+#Open the Streamlit app in your browser (usually at http://localhost:8501).
+
+#Upload a PDF file.
+
+#Wait for the app to process the PDF and generate Q&A pairs.
+
+#Download the generated Q&A file as a .txt file.
+
+*How It Works*
+
+#PDF Processing:
+
+  -PyMuPDF extracts metadata and text from the PDF.
+
+  -pdfplumber extracts detailed text content.
+
+#Text Chunking:
+
+  -The text is split into chunks (max 300 words) for processing.
+
+#Q&A Generation:
+
+  -Each chunk is sent to the NVIDIA NeMo API to generate relevant Q&A pairs.
+
+#Output:
+
+  -Extracted Q&A pairs are processed and formatted into a downloadable text file.
+
+*Example Output*
+
+``Question: What is the purpose of the Streamlit app?
+Answer: The app processes PDF files to extract Q&A pairs.
+Question: How are the PDFs processed?
+Answer: PDFs are processed using PyMuPDF and pdfplumber for text and metadata extraction.
+``
+
 
 .. toctree::
    :maxdepth: 2
