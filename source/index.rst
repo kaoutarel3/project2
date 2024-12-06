@@ -96,8 +96,9 @@ Output:
 **Example Output**
 
 ``Question: What is the purpose of the Streamlit app?
-Answer: The app processes PDF files to extract Q&A pairs.
-Question: How are the PDFs processed?
+Answer: The app processes PDF files to extract Q&A pairs.``
+
+``Question: How are the PDFs processed?
 Answer: PDFs are processed using PyMuPDF and pdfplumber for text and metadata extraction.``
 
 
