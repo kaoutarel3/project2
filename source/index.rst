@@ -33,83 +33,76 @@ The models used
 
 This project is a Streamlit-based application that processes PDF documents to generate question-and-answer pairs based on the content. It uses PyMuPDF and pdfplumber for text and metadata extraction, and leverages NVIDIA's NeMo Inference API for generating Q&A responses.
 
-*Features:*
+**Features:**
 
 -Extracts metadata and text from uploaded PDFs.
-
 -Splits text into manageable chunks for processing.
-
 -Generates 5 relevant questions and answers from each text chunk using the NVIDIA NeMo API.
-
 -Outputs the Q&A pairs as a downloadable text file.
 
-*Installation:*
+**Installation:**
 
-*--Prerequisites:*
+   *--Prerequisites:*
 
-#Python 3.8 or higher.
+1- Python 3.8 or higher.
 
-#NVIDIA NeMo account with an API key and endpoint.
+2- NVIDIA NeMo account with an API key and endpoint.
 
-#NVIDIA-compatible environment for accessing the NeMo model via the OpenAI client.
+3- NVIDIA-compatible environment for accessing the NeMo model via the OpenAI client.
 
-*--Steps:*
+   *--Steps:*
 
-#Clone the repository:
+1- Clone the repository:
 
 ``git clone <repository-url>
 cd <repository-folder>``
 
-#Install dependencies:
+2- Install dependencies:
 
 ``pip install -r requirements.txt``
 
-#Replace placeholders for the API key and endpoint in the code:
+3- Replace placeholders for the API key and endpoint in the code:
 
 ``API_KEY = '<your API key>'
 ENDPOINT = '<your inference endpoint>'``
 
-#Run the Streamlit app:
+4- Run the Streamlit app:
 
 ``streamlit run app.py``
 
-*Usage*
+**Usage**
 
-#Open the Streamlit app in your browser (usually at http://localhost:8501).
+1-Open the Streamlit app in your browser (usually at http://localhost:8501).
+2- Upload a PDF file.
+3- Wait for the app to process the PDF and generate Q&A pairs.
+4-Download the generated Q&A file as a .txt file.
 
-#Upload a PDF file.
+**How It Works**
 
-#Wait for the app to process the PDF and generate Q&A pairs.
-
-#Download the generated Q&A file as a .txt file.
-
-*How It Works*
-
-#PDF Processing:
+1- PDF Processing:
 
   -PyMuPDF extracts metadata and text from the PDF.
-
   -pdfplumber extracts detailed text content.
 
-#Text Chunking:
+2- Text Chunking:
 
   -The text is split into chunks (max 300 words) for processing.
 
-#Q&A Generation:
+3- Q&A Generation:
 
   -Each chunk is sent to the NVIDIA NeMo API to generate relevant Q&A pairs.
 
-#Output:
+4- Output:
 
   -Extracted Q&A pairs are processed and formatted into a downloadable text file.
 
-*Example Output*
+**Example Output**
 
 ``Question: What is the purpose of the Streamlit app?
 Answer: The app processes PDF files to extract Q&A pairs.
 Question: How are the PDFs processed?
-Answer: PDFs are processed using PyMuPDF and pdfplumber for text and metadata extraction.
-``
+Answer: PDFs are processed using PyMuPDF and pdfplumber for text and metadata extraction.``
+
 
 
 .. toctree::
