@@ -6,8 +6,8 @@
 .. raw:: html
 
    <h1>
-       <span style="color: #45364e;">stu</span>
-       <span style="color: #829ded;">(dying)</span>
+       <span style="color: #45364e;">STU</span>
+       <span style="color: #829ded;">(DYING)</span>
    </h1>
 
 .. raw:: html
@@ -20,22 +20,21 @@
 
    <h3>
        <span style="color: #45364e;">Supervisor</span>
-       <span style="color: #000000;">Mr. Masrour</span>
    </h3>
+Mr. Masrour
 
 .. raw:: html
 
    <h3>
        <span style="color: #45364e;">Creators</span>
-       <span style="color: #000000;">AOUSSAR Wissal & EL RHAZI Kaoutar</span>
    </h3>
+AOUSSAR Wissal & EL RHAZI Kaoutar
 
 .. raw:: html
 
    <h3>
        <span style="color: #45364e;">GitHub Repository</span>
-       <span style="color: #000000;">`Link Text <http://example.com>`_</span>
-   </h3>
+`Link Text <http://example.com>`_
 
 .. toctree::
    :maxdepth: 2
