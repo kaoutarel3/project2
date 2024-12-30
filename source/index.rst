@@ -38,7 +38,7 @@ AOUSSAR Wissal & EL RHAZI Kaoutar
 
    <h3>
        <span style="color: #45364e;">GitHub Repository</span>
-`Link Text <http://example.com>`_
+`Link Text <https://github.com/kaoutarel3/Stu-dying-.git>`_
 
 .. toctree::
    :maxdepth: 1
