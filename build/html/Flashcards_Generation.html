@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Stu(dying)</title>
+  <title>Stu(dying) &mdash; Stu(dying)</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -43,13 +43,19 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Chatbot.html"><strong>Outline</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Chatbot.html#prerequisites"><strong>Prerequisites</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Chatbot.html#importing-libraries"><strong>Importing libraries</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Chatbot.html#reading-the-pdf-file"><strong>Reading the PDF file</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Chatbot.html#retrieve-and-respond-to-queries-from-a-pdf-file"><strong>Retrieve and respond to queries from a PDF file</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Chatbot.html#generate-chatbot-response-with-language-detection"><strong>Generate Chatbot response with language detection</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Outline</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#prerequisites"><strong>Prerequisites</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#importing-libraries"><strong>Importing Libraries</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#reading-the-pdf-file"><strong>Reading the PDF File</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#splitting-text-into-chunks"><strong>Splitting Text into Chunks</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#detecting-and-translating-language"><strong>Detecting and Translating Language</strong></a></li>
 </ul>
 
         </div>
@@ -66,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">Stu(dying)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Flashcards_Generation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -76,7 +82,107 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <h1>
+    <span style="color: #E0B0FF;">Flashcards</span>
+</h1><section id="outline">
+<h1><strong>Outline</strong><a class="headerlink" href="#outline" title="Link to this heading"></a></h1>
+<p>The PDF to Q&amp;A Converter is a Streamlit application designed to extract text from uploaded PDF files and generate context-aware Q&amp;A pairs using an advanced AI model. This tool supports multi-language PDFs, automated chunking of text, and language translation for comprehensive usability.</p>
+</section>
+<section id="prerequisites">
+<h1><strong>Prerequisites</strong><a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h1>
+<h3>
+    <span style="color: #45364e;">1. Python Environment</span>
+</h3><p>Python 3.9 or newer.</p>
+<h3>
+    <span style="color: #45364e;">2. Required Python Libraries</span>
+</h3><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>streamlit<span class="w"> </span>pdfplumber<span class="w"> </span>langdetect<span class="w"> </span>deep-translator
+</pre></div>
+</div>
+<h3>
+    <span style="color: #45364e;">3. Ollama API</span>
+</h3><ul class="simple">
+<li><p>Download Ollama</p></li>
+<li><p>Pull the desired model</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>llama3:8b
+</pre></div>
+</div>
+</section>
+<section id="importing-libraries">
+<h1><strong>Importing Libraries</strong><a class="headerlink" href="#importing-libraries" title="Link to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">streamlit</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">pdfplumber</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">deep_translator</span> <span class="kn">import</span> <span class="n">GoogleTranslator</span>
+<span class="kn">from</span> <span class="nn">langdetect</span> <span class="kn">import</span> <span class="n">detect</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-the-pdf-file">
+<h1><strong>Reading the PDF File</strong><a class="headerlink" href="#reading-the-pdf-file" title="Link to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_text_and_metadata</span><span class="p">(</span><span class="n">pdf_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract text and metadata from a PDF file.&quot;&quot;&quot;</span>
+    <span class="n">pdf_content</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pdf_file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Reset the file pointer</span>
+        <span class="k">with</span> <span class="n">pdfplumber</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">pdf_file</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">page_num</span><span class="p">,</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pdf</span><span class="o">.</span><span class="n">pages</span><span class="p">):</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
+                <span class="n">page_data</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;page_number&#39;</span><span class="p">:</span> <span class="n">page_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="n">pdf_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_data</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error extracting PDF content: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pdf_content</span>
+</pre></div>
+</div>
+</section>
+<section id="splitting-text-into-chunks">
+<h1><strong>Splitting Text into Chunks</strong><a class="headerlink" href="#splitting-text-into-chunks" title="Link to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_text_into_chunks</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split text into smaller chunks with a maximum word count.&quot;&quot;&quot;</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_chunk</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_chunk</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">max_words</span><span class="p">:</span>
+            <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_chunk</span><span class="p">))</span>
+            <span class="n">current_chunk</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_chunk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">current_chunk</span><span class="p">:</span>
+        <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_chunk</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">chunks</span>
+</pre></div>
+</div>
+</section>
+<section id="detecting-and-translating-language">
+<h1><strong>Detecting and Translating Language</strong><a class="headerlink" href="#detecting-and-translating-language" title="Link to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_language</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect the language of the provided text.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">detected_lang</span> <span class="o">=</span> <span class="n">detect</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">detected_lang</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;en&quot;</span>  <span class="c1"># Default to English if detection fails</span>
+
+<span class="k">def</span> <span class="nf">translate_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">source_lang</span><span class="p">,</span> <span class="n">target_lang</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate text from the source language to the target language.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">translated</span> <span class="o">=</span> <span class="n">GoogleTranslator</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source_lang</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target_lang</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">translated</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Translation error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>The application integrates AI-driven Q&amp;A generation with language detection and translation, ensuring accessibility for users worldwide. The <strong>“llama3:8b”</strong> model is employed for contextual understanding and response generation.</p>
+</section>
+
 
            </div>
           </div>

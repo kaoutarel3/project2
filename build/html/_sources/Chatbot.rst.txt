@@ -4,7 +4,7 @@
 .. raw:: html
 
    <h1>
-       <span style="color: #45364e;">Chatbot🤖</span>
+       <span style="color: #E0B0FF;">Chatbot🤖</span>
    </h1>
 
 **Outline**
