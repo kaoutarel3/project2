@@ -41,7 +41,6 @@ AOUSSAR Wissal & EL RHAZI Kaoutar
 `Link Text <http://example.com>`_
 
 .. toctree::
-   :maxdepth: 1
    :caption: Contents:
 
    Overview
