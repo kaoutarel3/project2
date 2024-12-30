@@ -44,7 +44,7 @@ Python 3.9 or newer.
 
 .. code-block:: bash
 
-    ollama pull llama3:8b
+    ollama pull llama3.2
 
 **Importing Libraries**
 ------------------------
