@@ -44,7 +44,7 @@ Python 3.9 or newer.
     ollama pull mxbai-embed-large:latest
 
 **Importing libraries **
----------------------------
+------------------------
 .. code-block:: python
 
     import streamlit as st
@@ -75,7 +75,7 @@ Python 3.9 or newer.
     return all_page_text
 
 **Retrieve and respond to queries from a PDF file**
------------------------------------------------------
+---------------------------------------------------
 .. code-block:: python
 
     def retriever(doc, question):
@@ -117,7 +117,7 @@ In this function, it serves as the final step in generating answers to questions
 
 
 **Generate Chatbot response with language detection**
-------------------------------------------------------
+-----------------------------------------------------
 .. code-block:: python
 
     def get_chatbot_response(prompt):

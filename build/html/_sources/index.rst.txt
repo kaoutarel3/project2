@@ -6,31 +6,41 @@
 .. raw:: html
 
    <h1>
-       <span style="color: #45364e;">stu</span>
-       <span style="color: #829ded;">(dying)</span>
+       <span style="color: #45364e;">STU</span>
+       <span style="color: #829ded;">(DYING)</span>
    </h1>
 
 .. raw:: html
 
-   <h3>
+   <h2>
        <span style="color: #070637;">Stu(Dying): Turning Stress into Success!</span>
+   </h2>
+
+.. raw:: html
+
+   <h3>
+       <span style="color: #45364e;">Supervisor</span>
    </h3>
+Mr. Masrour
 
-**SUPERVISER:** Mr.MASROUR
----------------
+.. raw:: html
 
-**CREATORS:** AOUSSAR Wissal & EL RHAZI Kaoutar
--------------
+   <h3>
+       <span style="color: #45364e;">Creators</span>
+   </h3>
+AOUSSAR Wissal & EL RHAZI Kaoutar
 
-**GitHub Repository**
------------------------
-(the link)
+.. raw:: html
+
+   <h3>
+       <span style="color: #45364e;">GitHub Repository</span>
+`Link Text <http://example.com>`_
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
   Overview
-  Chatbot
+  Chatbot🤖
   Flashcards Generation
   The Streamlit App
