@@ -3,6 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. _Stu(dying):
+
+.. title:: Stu(dying)
+
 .. raw:: html
 
    <h1>
@@ -37,10 +41,10 @@ AOUSSAR Wissal & EL RHAZI Kaoutar
 `Link Text <http://example.com>`_
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-  Overview
-  Chatbot🤖
-  Flashcards Generation
-  The Streamlit App
+   Overview
+   Chatbot
+   Flashcards_Generation
+   The_Streamlit_App

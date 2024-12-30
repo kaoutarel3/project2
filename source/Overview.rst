@@ -1,3 +1,7 @@
+.. _Stu(dying):
+
+.. title:: Stu(dying)
+
 .. raw:: html
 
    <h1>

@@ -1,3 +1,6 @@
+.. _Stu(dying):
+
+.. title:: Stu(dying)
 .. raw:: html
 
    <h1>
@@ -43,7 +46,8 @@ Python 3.9 or newer.
     ollama pull llama3.2
     ollama pull mxbai-embed-large:latest
 
-**Importing libraries **
+
+**Importing libraries**
 ------------------------
 .. code-block:: python
 
