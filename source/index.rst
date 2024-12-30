@@ -39,11 +39,3 @@ AOUSSAR Wissal & EL RHAZI Kaoutar
    <h3>
        <span style="color: #45364e;">GitHub Repository</span>
 `Link Text <http://example.com>`_
-
-.. toctree::
-   :caption: Contents:
-
-   Overview
-   Chatbot
-   Flashcards_Generation
-   The_Streamlit_App
