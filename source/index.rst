@@ -43,6 +43,7 @@ AOUSSAR Wissal & EL RHAZI Kaoutar
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
+   :hidden:
 
    Overview
    Chatbot
